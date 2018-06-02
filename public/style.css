@@ -1,0 +1,83 @@
+body {
+   margin: 0; 
+  padding: 0;
+  width: 100%;
+}
+
+.header_section {
+  background-color:  #b2babb;
+}
+
+.header_section {
+  margin-top: 1em;
+  text-align: center;
+  font-size: 2rem;
+  color: blue;
+  border-bottom: 2px solid orangered;
+}
+
+/* STYLING COUNTER*/
+
+.count {
+  margin-top: 45px;
+}
+input[type='text']{
+  width: 60%;
+  margin-left: 18%;
+}
+
+.langGreet {
+  margin-left: 8em;
+  margin-top: 25px;
+}
+
+.display{
+  text-align: center;
+  margin-top: 25px;
+  box-sizing: border-box;
+}
+
+.buttons {
+  margin-top: 40px
+}
+.greet {
+  text-align: center;
+}
+.reset {
+  text-align: center;
+}
+.footer {
+  margin-top: 40px;
+  height: 60px;
+  background-color:  #d5dbdb;
+}
+/* .pos{
+  width: 600px;
+ margin:  0 auto;
+  
+}
+
+.lang{
+
+
+  margin: 0 auto;
+ 
+}
+
+
+
+.langGreet{
+  padding: 10px;
+
+}
+label{
+  padding-left:15px; 
+display: inline-block;
+
+}
+
+
+
+
+
+} */

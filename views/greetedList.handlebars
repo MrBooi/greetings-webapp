@@ -1,0 +1,19 @@
+<div class="container">
+    <h1>Greeted People</h1>
+</div>
+
+<div class="container">
+<div class="row">
+  <div class="ten.columns ">
+     {{#each nameList}}
+  <a href="/counter/{{@key}}"> <li>{{@key}}</li></a>
+     {{/each}}
+  </div>
+
+  <p>{{message}}</p>
+</div>
+</div>
+
+
+
+
