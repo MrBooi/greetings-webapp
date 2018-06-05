@@ -1,19 +1,20 @@
-
-module.exports=function() {
+"Use strict"
+module.exports=function(pool) {
   var namesGreeted = {};
   var name = "";
   var lang = "";
-
-  function greetPerson(value,langauge) {
+    
+  async function greetPerson(value,langauge) {
     if (value !== " " && langauge!=="") {
+       let result = pool.query('');
       name = value;
       lang  =langauge;
-      if (namesGreeted[name] === undefined) {
-        namesGreeted[name] = 0;
+        let storedusers = await pool.query('SELECT * FROM users WHERE first_name = $1',[name]);
+      if (storedusers.rowCount=== 0) {
+        await pool.query('INSERT into users (first_name,greet_counter ) values ($1,$2)',[name,1]);
       }
-      namesGreeted[name] += 1;
+      pool.query("UPDATE users SET greet_counter = (greet_counter +1) WHERE first_name= $1",[name]);
     }
-    
     if (lang === "English") {
       return "Hello, " + name;
     } else if (lang === "Afrikaans") {
@@ -22,8 +23,6 @@ module.exports=function() {
     if (lang === "IsiXhosa") {
       return "Molo, " + name;
     }
-
-    // return name;
   }
 
   function setLang(value) {
@@ -44,18 +43,19 @@ module.exports=function() {
   }
 
 
- function  greetedNames(){
-  return Object.keys(namesGreeted).length;
+  async function  greetedNames(){
+   let count =await pool.query("SELECT * from users");
+   return count.rowCount;
  }
 
- function restNamesList() {
+ async function restNamesList() {
   return namesGreeted = {};
 }
 
- function personGreet(value){
+  async function personGreet(value){
    if(value!=""){
-  let count=  namesGreeted[value];
-  return "Hello, "+value+" has been greeted "+count + " time(s)";
+  let count = await pool.query('SELECT * FROM users WHERE first_name = $1',[value]);
+  return "Hello, "+value+" has been greeted "+count.rows[0].greet_counter + " time(s)";
    }
  }
 
