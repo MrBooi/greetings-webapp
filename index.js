@@ -35,15 +35,16 @@ app.get('/', async function(req,res) {
 });
 
 app.get('/greet/:name/:langauge', async function(req,res) {
-  let nameGreeted = await greet.messageGreet(req.params.name,req.params.langauge);
+  let greetMessage =  await greet.messageGreet(req.params.name,req.params.langauge);
   let counter   = await greet.greetCounter();
-  res.render('greetings',{nameGreeted,counter});
+
+  res.render('greetings',{greetMessage,counter});
 });
 
 app.post("/greet",async function(req,res){
-let nameGreeted = await greet.messageGreet(req.body.enteredName,req.body.langauge);
+let greetMessage = await greet.messageGreet(req.body.enteredName,req.body.langauge);
 let counter   = await greet.greetCounter();
-res.render('greetings',{nameGreeted,counter});
+res.render('greetings',{greetMessage,counter});
 });
 
 app.get("/greeted",async function(req,res,next){
@@ -65,8 +66,8 @@ res.render('greetedList',{nameList,message})
 })
 
 app.get("/reset",async function(req,res){
+      await greet.reset();
   let counter   = await greet.greetCounter();
-  greet.reset();
   res.render('greetings',{counter});
 });
 
