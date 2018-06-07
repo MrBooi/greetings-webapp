@@ -77,3 +77,43 @@ text-decoration: none;
   height: 40px;
   background-color:  #d5dbdb;
 }
+
+
+
+@media screen and (max-width:622px){
+  .count {
+    margin-top: 30px;
+  }
+  .counter{
+    display: block;
+    text-align: center;
+  }
+  
+  label{
+  display: block;
+  }
+  .langGreet {
+    margin-left: 2em;
+  }
+   
+  .three.columns{
+    display: block;
+    width: 30%;
+    margin: 0;
+  }
+ 
+
+  input[type='radio']{
+    float: left;
+    width: 60%;
+  }
+
+  .greetMe{
+    width: 70%;
+  }
+  .resetBtn{
+    width: 70%;
+  }
+  
+
+}

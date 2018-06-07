@@ -29,9 +29,13 @@ const express = require('express');
 }));
    app.set('view engine', 'handlebars');
 
-app.get('/', async function(req,res) {
-  let counter   =  await greet.greetCounter();
+app.get('/', async function(req,res ,next) {
+  try {
+    let counter   =  await greet.greetCounter();
   res.render('greetings',{counter});
+  } catch (err) {
+    return next(err);
+  }
 });
 
 app.get('/greet/:name/:langauge', async function(req,res) {
@@ -41,10 +45,14 @@ app.get('/greet/:name/:langauge', async function(req,res) {
   res.render('greetings',{greetMessage,counter});
 });
 
-app.post("/greet",async function(req,res){
-let greetMessage = await greet.messageGreet(req.body.enteredName,req.body.langauge);
+app.post("/greet",async function(req,res,next){
+  try {
+    let greetMessage = await greet.messageGreet(req.body.enteredName,req.body.langauge);
 let counter   = await greet.greetCounter();
 res.render('greetings',{greetMessage,counter});
+  } catch (err) {
+    return next(err);
+  }
 });
 
 app.get("/greeted",async function(req,res,next){
@@ -58,17 +66,25 @@ app.get("/greeted",async function(req,res,next){
   
 });
 
-app.get("/counter/:userName",async function(req,res){
-  let result = await pool.query('SELECT * FROM users');
+app.get("/counter/:userName",async function(req,res,next){
+  try {
+    let result = await pool.query('SELECT * FROM users');
   let nameList = result.rows;
      let message = await greet.greetMessage(req.params.userName);
 res.render('greetedList',{nameList,message})
-})
+  } catch (err) {
+    return next(err);
+  }
+});
 
-app.get("/reset",async function(req,res){
-      await greet.reset();
-  let counter   = await greet.greetCounter();
-  res.render('greetings',{counter});
+app.get("/reset",async function(req,res,next){
+  try {
+    await greet.reset();
+    let counter   = await greet.greetCounter();
+    res.render('greetings',{counter});
+  } catch (error) {
+    return next(err);
+  }  
 });
 
  app.listen(PORT, async function(err) {
